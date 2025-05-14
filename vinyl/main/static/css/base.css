@@ -3,8 +3,20 @@
 :root {
     --box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.363);
 }
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../img/bg-y2k.jpg');  /* путь к твоей картинке */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;  /* полупрозрачность */
+    z-index: -1;   /* чтобы не мешала контенту */
+}
 
-/* @font-face { 
+@font-face { 
     font-family: "dark";
     src: url(../fonts/Blackblade.ttf);
 }
@@ -14,7 +26,7 @@ span {
     font-size: 48px;
     line-height: 0;
 }
-*/
+
 body {
     font-family: "Carrois Gothic", sans-serif;
     font-size: 18px;
@@ -96,7 +108,7 @@ input:focus {
 
   
 .header {
-    height: 80px;
+    height: 60px;
     background-color: #fff;
     box-shadow: var(--box-shadow);
 }
@@ -107,7 +119,7 @@ input:focus {
 
 .vinyl-logo {
     position: fixed;
-    top: 0.5%;
+    top: -1.5%;
     left: 44.5%;
     
 }
@@ -195,35 +207,20 @@ input:focus {
     opacity: 0.1;
     top: -16%;
 }
-
-.frame1 {
+*/
+.angle1 {
     position: absolute;
     right: -0.5%;
-    bottom: 60%;
+    bottom: 50%;
     z-index: -1;
 }
 
-.frame2 {
-    position: absolute;
-    left: -0.5%;
-    bottom: 60%;
-    z-index: -1;
-}
-
-.frame3 {
+.angle2 {
     position: absolute;
     left: -0.3%;
-    top: 73.4%;
+    top: 60%;
     z-index: -1;
 }
-
-.frame4 {
-    position: absolute;
-    right: -0.3%;
-    top: 73.4%;
-    z-index: -1;
-}
-*/
 
 .detail-image {
     width: 650px;

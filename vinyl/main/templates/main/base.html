@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
+    <div class="background-image"></div>
     <header class="header sticky-top">
         <div class="header-container d-flex">
             <div class="header-logo">
@@ -35,16 +36,10 @@
     </header>
     <div class="container">
         {% block content %}
-
         {% endblock content %}
     </div>
-
-
-
-
-
-
-
+    <img src="{% static 'img/angle.png' %}" class="angle1" alt="" style="max-width: 200px; height: auto;">
+    <img src="{% static 'img/angle2.png' %}" class="angle2" alt="" style="max-width: 200px; height: auto;">
     {% comment %} js for bootstrap {% endcomment %}
     <script src={% static 'bootstrap\js\bootstrap.bundle.min.js' %}></script>
 </body>
