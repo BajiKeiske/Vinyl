@@ -14,25 +14,22 @@
 <body>
     <div class="background-image"></div>
     <header class="header sticky-top">
-        <div class="header-container d-flex">
-            <div class="header-logo">
-                <a href="/shop"><img src="{% static 'img/logo_pr.png' %}" alt="" class="vinyl-logo" style="max-width: 80px; height: auto;"></a>
-            </div>
-            <navbar class="header-nav pt-4">
-                <ul class="header-list d-flex">
-                    <li>
-                        <a href="/" class="nav-a m-3">Главная</a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-a m-3">Магазин</a>
-                    </li>
-                </ul>
-            </navbar>
-            
-            <div class="header-profile">
-                <a href="#" class="m-3">Войти</a>
-            </div>
+    <div class="header-container">
+        <nav class="header-nav">
+            <ul class="header-list">
+                <li><a href="/" class="nav-a m-3">Главная</a></li>
+                <li><a href="#" class="nav-a m-3">Магазин</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-logo">
+            <a href="/shop"><img src="{% static 'img/logo_pr.png' %}" alt="Логотип" class="vinyl-logo"></a>
         </div>
+
+        <div class="header-profile">
+            <a href="#" class="m-3">Войти</a>
+        </div>
+    </div>
     </header>
     <div class="container">
         {% block content %}
