@@ -180,7 +180,7 @@ input:focus {
 
 .price { 
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 400;
     margin-top: -10px;
 }
 
@@ -192,7 +192,6 @@ input:focus {
     height: 50px;
     border: 1px solid #00000027;
     border-radius: 5px;
-    /* background-image: url(../img/btnh.png); */
     transition: all .4s ease;
     z-index: 2;
 }
@@ -248,7 +247,7 @@ input:focus {
 
 .cart-discount {
     margin-top: -10px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .cart-discount .price {
@@ -327,5 +326,4 @@ input:focus {
 .selected{
     border: 1px solid #000;
     border-radius: 5px;
-    background-image: url(../img/categories-gtn.png);
 }
