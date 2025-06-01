@@ -5,12 +5,12 @@
 }
 
 @font-face { 
-    font-family: "dark";
+    font-family: "Blackblade";
     src: url(../fonts/Blackblade.ttf);
 }
 
 span {
-    font-family: "dark", "Dark Wizards", serif;
+    font-family: "Blackblade", serif;
     font-size: 48px;
     line-height: 0;
 }
