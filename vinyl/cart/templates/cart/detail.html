@@ -31,7 +31,7 @@
                             {% if product.discount %}
                                 <div class="cart-discount d-flex gap-2">
                                     <p class="line">₽ {{ product.price }}</p>
-                                    <p>$ {{ product.sell_price }}</p>
+                                    <p>{{ product.sell_price }} ₽</p>
                                 </div>
                             {% else %}
                                 <p class="price mt-3">{{ product.price }} ₽</p>
@@ -42,7 +42,7 @@
             {% endfor %}
         </div>
         <div class="total">
-            <h5>Итого: ₽ {{ cart.get_total_price }}</h5>
+            <h5>Итого: {{ cart.get_total_price }} ₽</h5>
         </div>
         <div class="cart-buttons d-flex gap-3">
             <a href="/shop" class="cart-btn">Продолжить покупки</a>

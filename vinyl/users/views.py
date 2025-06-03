@@ -6,7 +6,6 @@ from .forms import UserLoginForm, UserRegistrationForm, \
     ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
-from orders.models import Order, OrderItem
 
 
 def login(request):
