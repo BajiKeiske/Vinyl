@@ -32,7 +32,7 @@ def registration(request):
             user = form.instance
             auth.login(request, user)
             messages.success(
-                request, f'{user.username}, Successful Registration'
+                request, f'{user.username}, Успешная регистрация'
             )
             return HttpResponseRedirect(reverse('user:login'))
     else:
@@ -47,7 +47,7 @@ def profile(request):
                            files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Profile was changed')
+            messages.success(request, 'Профиль был изменен')
             return HttpResponseRedirect(reverse('user:profile'))
     else:
         form = ProfileForm(instance=request.user)
