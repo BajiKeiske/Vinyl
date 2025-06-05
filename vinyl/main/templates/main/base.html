@@ -1,17 +1,20 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
 
     {% comment %} bootstrap {% endcomment %}
-    <link rel="stylesheet" href="{% static 'bootstrap\css\bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     {% comment %} css {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
+    {% if request.user.is_authenticated and request.user.is_superuser %}
+    <a href="{% url 'main:admin_panel' %}">Панель администратора</a>
+    {% endif %}
     <div class="background-image"></div>
     <header class="header sticky-top">
     <div class="header-container">
@@ -27,17 +30,21 @@
         </div>
 
         <div class="header-profile pt-2">
-            <a href="{% url "cart:cart_detail" %}"><img src="{% static 'img/cart.png' %}" class="cart-icon" alt=""></a>
-            <a href="{% url "users:login" %}" class="m-2">Войти</a>
-            <p class="cart-quantity">
-                    {% with cart_quantity=cart|length %}
-                        {% if cart_quantity > 0 %}
-                            {{ cart_quantity }}
-                        {% else %}
-                            0
-                        {% endif %}
-                    {% endwith %}
-                </p>
+            <div class="cart-wrapper" style="position: relative; display: inline-block;">
+                <a href="{% url "cart:cart_detail" %}">
+                    <img src="{% static 'img/cart.png' %}" class="cart-icon" alt="">
+                    <p class="cart-quantity">
+                        {% with cart_quantity=cart|length %}
+                            {{ cart_quantity|default:0 }}
+                        {% endwith %}
+                    </p>
+                </a>
+            </div>
+            {% if user.is_authenticated %}
+                    <a href="{% url "users:profile" %}">Профиль</a>
+                {% else %}
+                    <a href="{% url "users:login" %}" class="m-2">Войти</a>
+                {% endif %}
         </div>
     </div>
     </header>
@@ -45,9 +52,9 @@
         {% block content %}
         {% endblock content %}
     </div>
-    <img src="{% static 'img/angle.png' %}" class="angle1" alt="" style="max-width: 200px; height: auto;">
-    <img src="{% static 'img/angle2.png' %}" class="angle2" alt="" style="max-width: 200px; height: auto;">
+    {% comment %} <img src="{% static 'img/angle.png' %}" class="angle1" alt="" style="max-width: 200px; height: auto;">
+    <img src="{% static 'img/angle2.png' %}" class="angle2" alt="" style="max-width: 200px; height: auto;"> {% endcomment %}
     {% comment %} js for bootstrap {% endcomment %}
-    <script src={% static 'bootstrap\js\bootstrap.bundle.min.js' %}></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

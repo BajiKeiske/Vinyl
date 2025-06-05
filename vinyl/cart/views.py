@@ -28,5 +28,8 @@ def cart_remove(request, product_id):
 
 
 def cart_detail(request):
+    if request.user.is_staff:
+        return redirect('/shop')
     cart = Cart(request)
     return render(request, 'cart/detail.html', {'cart': cart})
+

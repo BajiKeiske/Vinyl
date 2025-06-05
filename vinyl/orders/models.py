@@ -1,8 +1,6 @@
 from django.db import models
 from main.models import Product
 from users.models import User
-from django.conf import settings
-
 
 class Order(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.SET_DEFAULT,
@@ -15,8 +13,7 @@ class Order(models.Model):
     postal_code = models.CharField('Почтовый индекс', max_length=20)
     created = models.DateTimeField('Создан', auto_now_add=True)
     updated = models.DateTimeField('Обновлён', auto_now=True)
-    paid = models.BooleanField('Оплачен', default=False)
-    stripe_id = models.CharField('Stripe ID', max_length=250, blank=True)
+    paid = models.BooleanField('Оплачен', default=False)  
 
     class Meta:
         ordering = ['-created']
@@ -29,14 +26,11 @@ class Order(models.Model):
     def __str__(self):
         return f'Заказ {self.id}'
 
-    def get_total_cost(self):
+    @property
+    def total_price(self):
         return sum(item.get_cost() for item in self.items.all())
 
-    def get_stripe_url(self):
-        if not self.stripe_id:
-            return ''
-        path = '/test/' if '_test_' in settings.STRIPE_SECRET_KEY else '/'
-        return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
+
 
 
 class OrderItem(models.Model):

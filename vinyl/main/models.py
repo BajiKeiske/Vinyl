@@ -30,7 +30,7 @@ class Product(models.Model):
     available = models.BooleanField('В наличии', default=True)
     created = models.DateTimeField('Создан', auto_now_add=True)
     updated = models.DateTimeField('Обновлён', auto_now=True)
-    discount = models.DecimalField('Скидка (%)', default=0.00, max_digits=4, decimal_places=2)
+    discount = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['name']

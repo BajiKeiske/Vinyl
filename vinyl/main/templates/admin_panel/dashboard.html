@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Панель администратора{% endblock title %}
+{% block content %}
+<div class="admin-panel">
+    <h2 class="admin-panel__title">Панель администратора</h2>
+    <a href="{% url 'main:user_list' %}">
+        Клиенты
+    </a>
+    <div class="admin-panel__actions">
+        <a href="{% url 'main:product_add' %}" class="btn btn-primary">
+            ➕ Добавить товар
+        </a>
+    </div>
+
+    {% if messages %}
+    <ul class="admin-panel__messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
+
+    <div class="admin-panel__export-forms">
+        <form method="get" action="{% url 'main:export_excel' %}" class="export-form">
+            <div class="export-form__fields">
+                <label class="export-form__label">
+                    С: <input type="date" name="start" class="export-form__input">
+                </label>
+                <label class="export-form__label">
+                    По: <input type="date" name="end" class="export-form__input">
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success btn-sm">
+                Экспорт в Excel
+            </button>
+        </form>
+
+        <form method="get" action="{% url 'main:export_pdf' %}" class="export-form">
+            <div class="export-form__fields">
+                <label class="export-form__label">
+                    С: <input type="date" name="start" class="export-form__input">
+                </label>
+                <label class="export-form__label">
+                    По: <input type="date" name="end" class="export-form__input">
+                </label>
+            </div>
+            <button type="submit" class="btn btn-danger btn-sm">
+                Экспорт в PDF
+            </button>
+        </form>
+    </div>
+
+    <table class="admin-panel__table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }} ₽</td>
+                <td class="actions">
+                    <a href="{% url 'main:product_edit' product.id %}" class="btn btn-sm">
+                        Редактировать
+                    </a>
+                    <a href="{% url 'main:product_delete' product.id %}" class="btn btn-sm btn-danger">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

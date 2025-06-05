@@ -10,8 +10,7 @@ class Cart:
         if not cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
-        
-    
+
     def add(self, product, quantity=1, override_quantity=False):
         product_id = str(product.id)
         if product_id not in self.cart:
@@ -22,20 +21,17 @@ class Cart:
         else:
             self.cart[product_id]['quantity'] += quantity
         self.save()
-        
-    
+
     def save(self):
         self.session.modified = True
-        
-    
+
     def remove(self, product):
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
-    
-    
-    def __iter__(self): #служебный метод
+
+    def __iter__(self):
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
@@ -43,21 +39,20 @@ class Cart:
             cart[str(product.id)]['product'] = product
         for item in cart.values():
             item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
+            discount = item['product'].discount or 0
+            item['sell_price'] = (item['price'] - item['price'] * Decimal(discount) / 100).quantize(Decimal('1'))
+            item['total_price'] = item['sell_price'] * item['quantity']
             yield item
-            
-    
+
     def __len__(self):
         return sum(item['quantity'] for item in self.cart.values())
-    
-    
+
     def clear(self):
-        del self.session[settings.CART_SESSION_ID]
-        
-    
+        self.session.pop(settings.CART_SESSION_ID, None)
+        self.save()
+
     def get_total_price(self):
-        total = sum((Decimal(item['price']) - (Decimal(item['price']) \
-            * Decimal(item['product'].discount / 100))) * item['quantity']
-                for item in self.cart.values())
-        return total.to_integral()
-        
+        total = Decimal('0')
+        for item in self:
+            total += item['total_price']
+        return total.quantize(Decimal('1'))

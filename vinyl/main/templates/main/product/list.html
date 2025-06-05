@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Shop{% endblock title %}
+{% block title %}Магазин{% endblock title %}
 
 {% block content %}
     <div class="llist d-flex">
@@ -27,7 +27,7 @@
                     {% for product in products %}
                         <div class="item">
                             <a href="{{ product.get_absolute_url }}" class="home-card d-flex flex-column align-items-center text-center">
-                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}" class="card-img" alt="">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/noimage.png' %}{% endif %}" class="card-img" alt="">
                                 <h5 class="title-card">{{ product.name }}</h5>
                                 {% if product.discount %}
                                     <div class="cart-discount d-flex gap-2">
@@ -42,21 +42,26 @@
                     {% endfor %}
                 </div>
             </div>
-            <ul class="pagination">
-                <li class="{% if not products.has_previous %}disabled{% endif %}">
-                    <a href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% endif %}">Назад</a>
-                </li>
-                {% for page in products.paginator.page_range %}
-                    {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
-                        <li>
-                            <a href="?page={{ page }}" class="{% if products.number == page %}disabled{% endif %}">{{ page }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-                <li class="{% if not products.has_next %}disabled{% endif %}">
-                    <a href="{% if products.has_next %}?page={{ products.next_page_number }}{% endif %}">Дальше</a>
-                </li>
-            </ul>
+            
+            <!-- Контейнер для пагинации с дополнительным отступом -->
+            <div class="pagination-container">
+                <ul class="pagination">
+                    <li class="{% if not products.has_previous %}disabled{% endif %}">
+                        <a href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% endif %}">Назад</a>
+                    </li>
+                    {% for page in products.paginator.page_range %}
+                        {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
+                            <li class="{% if products.number == page %}active{% endif %}">
+                                <a href="?page={{ page }}">{{ page }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="{% if not products.has_next %}disabled{% endif %}">
+                        <a href="{% if products.has_next %}?page={{ products.next_page_number }}{% endif %}">Дальше</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <div class="mainvl"></div>
     </div>
 {% endblock content %}
